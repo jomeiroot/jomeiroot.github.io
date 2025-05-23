@@ -1,48 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Home</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <meta charset="utf-8" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>I love you Ysobel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:wght@300;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #ff6e6e;
+      --secondary: #f8cdda;
+      --bg: #fffaf7;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Raleway', sans-serif;
+      background: linear-gradient(135deg, var(--secondary), var(--bg));
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 4rem);
+      margin: 0 0 2rem;
+      color: var(--primary);
+      text-align: center;
+      animation: fadeIn 2s ease-out forwards;
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Heart animation */
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .hearts span {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: var(--primary);
+      transform: rotate(45deg);
+      opacity: 0.8;
+      animation: float 8s linear infinite;
+    }
+
+    .hearts span::before,
+    .hearts span::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: var(--primary);
+      border-radius: 50%;
+    }
+
+    .hearts span::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .hearts span::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(45deg);
+      }
+      100% {
+        transform: translateY(-10vh) rotate(45deg);
+      }
+    }
+
+    .gallery {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      max-width: 1000px;
+      width: 90%;
+      padding-bottom: 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    figure {
+      margin: 0;
+      position: relative;
+      overflow: hidden;
+      border-radius: 1rem;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    figure:hover {
+      transform: translateY(-5px);
+    }
+
+    figure img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(90%);
+      transition: filter 0.3s ease;
+    }
+
+    figure:hover img {
+      filter: brightness(105%);
+    }
+
+    figcaption {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 0.5rem 1rem;
+      background: rgba(0, 0, 0, 0.45);
+      color: #fff;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 1rem;
+      font-size: 0.8rem;
+      color: #555;
+      position: relative;
+      z-index: 2;
+    }
+
+    a {
+      color: inherit;
+    }
+  </style>
 </head>
-<body id = "bodyhome">
-  <script src="colorblender.js"></script>
-<!-- <a href  ="colorblender.html">
-<h1 id =>Colorblender</h1>
-</a>
-<a href = "easing.html">
-    <h1>Easing</h1>
-</a>
-<a href = "weather.html">
-    <h1>Weather</h1>
-</a> -->
-<!--     <ul>
-  <li><a href="colorblender.html">Home</a></li>
-  <li><a href="easing.html">News</a></li>
-  <li><a href="weather.html">Contact</a></li>
-  <li style="float:right"><a class="active" href="#about">About</a></li>
-</ul> -->
+<body>
 
-<div class="navbar">
-  <a href="index.html">Home</a>
-  <a href="oldweather.html">Weather</a>
-  <div class="dropdown">
-    <button class="dropbtn">P5 projects 
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="easing.html">brush</a>
-      <a href="colorblender.html">colorblender</a>
-      <a href="oldweather.html">old weather</a>
-      <!-- <a href = "bubbles.html">Bubbles</a> -->
-      <a href = "movingcolorjson.html">ColorJson</a>
-      <a href = "randomtext.html">randtext</a>
-      <a href = "moveablesun.html">MovingSun</a>
+  <!-- Animated hearts background -->
+  <div class="hearts">
+    <span style="left: 5%; animation-delay: 0s; animation-duration: 7s;"></span>
+    <span style="left: 15%; animation-delay: 2s; animation-duration: 9s;"></span>
+    <span style="left: 25%; animation-delay: 4s; animation-duration: 8s;"></span>
+    <span style="left: 35%; animation-delay: 1s; animation-duration: 6s;"></span>
+    <span style="left: 45%; animation-delay: 3s; animation-duration: 10s;"></span>
+    <span style="left: 55%; animation-delay: 0.5s; animation-duration: 7.5s;"></span>
+    <span style="left: 65%; animation-delay: 5s; animation-duration: 8.5s;"></span>
+    <span style="left: 75%; animation-delay: 2.5s; animation-duration: 9.5s;"></span>
+    <span style="left: 85%; animation-delay: 1.5s; animation-duration: 7s;"></span>
+    <span style="left: 95%; animation-delay: 4.5s; animation-duration: 11s;"></span>
+  </div>
 
-    </div>
-  </div> 
-</div>
+  <h1>I love you Ysobel</h1>
+
+  <section class="gallery">
+    <figure>
+      <img src="https://images.unsplash.com/photo-1582560472162-74454132097a?auto=format&fit=crop&w=800&q=80" alt="Cormorant" />
+      <figcaption>Cormorant</figcaption>
+    </figure>
+
+    <figure>
+      <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=80" alt="Scorpion" />
+      <figcaption>Scorpion</figcaption>
+    </figure>
+
+    <figure>
+      <img src="https://images.unsplash.com/photo-1594322436405-d184fe4f3764?auto=format&fit=crop&w=800&q=80" alt="Nasturtium" />
+      <figcaption>Nasturtium</figcaption>
+    </figure>
+  </section>
+
+  <footer>Images via Unsplash</footer>
 </body>
 </html>
